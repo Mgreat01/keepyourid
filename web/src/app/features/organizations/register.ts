@@ -10,11 +10,21 @@ export class Register {
   error = signal('');
   result = signal('');
   form = this.fb.nonNullable.group({
-    legal_name: ['', [Validators.required, Validators.minLength(2), Validators.pattern(/.*\S.*/)]],
-    registration_number: ['', [Validators.required, Validators.pattern(/.*\S.*/)]],
+    legal_name: [
+      '',
+      [Validators.required, Validators.pattern(/\S[\s\S]*\S/), Validators.maxLength(255)],
+    ],
+    registration_number: [
+      '',
+      [Validators.required, Validators.pattern(/.*\S.*/), Validators.maxLength(100)],
+    ],
     email: ['', [Validators.required, Validators.email]],
-    phone: [''],
+    phone: ['', Validators.maxLength(30)],
   });
+  invalid(field: keyof typeof this.form.controls) {
+    const control = this.form.controls[field];
+    return control.touched && control.invalid;
+  }
   submit() {
     this.form.markAllAsTouched();
     if (this.form.invalid || this.busy()) return;
