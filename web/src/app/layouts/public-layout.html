@@ -1,0 +1,63 @@
+<header
+  class="public-header sticky top-0 z-40 bg-paper/95 backdrop-blur-md max-[760px]:grid max-[760px]:grid-cols-[1fr_auto]"
+  (keydown.escape)="menuOpen.set(false); menuButton.focus()"
+>
+  <a class="brand" routerLink="/" aria-label="KeepYourID, accueil"
+    ><span class="brand-mark">K</span>KeepYourID<span class="brand-dot">.</span></a
+  >
+  <button
+    #menuButton
+    type="button"
+    class="button secondary small min-[761px]:hidden"
+    aria-controls="public-navigation"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="menuOpen.set(!menuOpen())"
+  >
+    {{ menuOpen() ? 'Fermer ✕' : 'Menu ☰' }}
+  </button>
+  <nav
+    id="public-navigation"
+    aria-label="Navigation principale"
+    class="max-[760px]:col-span-2"
+    [class]="
+      menuOpen() ? 'max-[760px]:grid max-[760px]:gap-2 max-[760px]:pt-3' : 'max-[760px]:hidden'
+    "
+    (click)="menuOpen.set(false)"
+  >
+    <a
+      class="rounded-md transition-colors hover:text-accent max-[760px]:p-3 max-[760px]:text-sm max-[760px]:hover:bg-brand/20"
+      routerLink="/how-it-works"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Fonctionnement</a
+    ><a
+      class="rounded-md transition-colors hover:text-accent max-[760px]:p-3 max-[760px]:text-sm max-[760px]:hover:bg-brand/20"
+      routerLink="/organizations"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Organisations</a
+    ><a
+      class="rounded-md transition-colors hover:text-accent max-[760px]:p-3 max-[760px]:text-sm max-[760px]:hover:bg-brand/20"
+      routerLink="/standards"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Confiance & standards</a
+    >
+    <a class="rounded-md bg-ink p-3 text-sm text-white min-[761px]:hidden" routerLink="/login"
+      >Accéder à la plateforme ↗</a
+    >
+  </nav>
+  <a class="button small max-[760px]:hidden" routerLink="/login"
+    >Accéder à la plateforme <span aria-hidden="true">↗</span></a
+  >
+</header>
+<main id="main"><router-outlet /></main>
+<footer>
+  <a class="brand" routerLink="/">KeepYourID.</a>
+  <p>Decentralized identity. Verifiable trust.</p>
+  <div>
+    <a routerLink="/about">À propos</a><a routerLink="/wallet">Wallet</a
+    ><a routerLink="/verification">Vérification</a><a routerLink="/contact">Contact</a>
+  </div>
+  <small>Projet en développement · Ethereum Sepolia</small>
+</footer>
